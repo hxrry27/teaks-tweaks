@@ -11,9 +11,6 @@ import me.teakivy.teakstweaks.utils.papi.PAPIExpansion;
 import me.teakivy.teakstweaks.utils.permission.PermissionManager;
 import me.teakivy.teakstweaks.utils.recipe.RecipeManager;
 import me.teakivy.teakstweaks.utils.register.Register;
-import me.teakivy.teakstweaks.utils.update.UpdateChecker;
-import me.teakivy.teakstweaks.utils.update.UpdateJoinAlert;
-import me.teakivy.teakstweaks.utils.update.VersionManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.translation.Argument;
@@ -39,8 +36,6 @@ public final class TeaksTweaks extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
 
-        VersionManager.init();
-        // Initialize an audiences instance for the plugin
         // Credits
         createCredits();
 
@@ -54,18 +49,8 @@ public final class TeaksTweaks extends JavaPlugin implements Listener {
         translationManager = new TranslationManager(getDataFolder());
         translationManager.initialize();
 
-        // Update Checker
-        if (Config.getBoolean("settings.disable-update-checker")) {
-            Logger.info(Component.translatable("startup.update.disabled"));
-        } else {
-            getServer().getPluginManager().registerEvents(new UpdateJoinAlert(), this);
-        }
-
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
         getServer().getPluginManager().registerEvents(new RecipeManager(), this);
-
-        Bukkit.getScheduler().runTaskLater(this, UpdateChecker::sendUpdateMessage, 20L * 3);
-
 
         // Commands
         Register.registerAll();

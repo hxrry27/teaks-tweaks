@@ -9,10 +9,6 @@ public class URLUtils {
         return "https://discord.gg/wfP4SkZx6s";
     }
 
-    public static String getModrinth() {
-        return "https://modrinth.com/plugin/teaks-tweaks";
-    }
-
     public static Component clickable(String url) {
         MiniMessage miniMessage = MiniMessage.miniMessage();
         return miniMessage.deserialize("<click:open_url:" + url + ">" + url + "</click>");

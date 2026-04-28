@@ -1,7 +1,6 @@
 package me.teakivy.teakstweaks.commands;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -19,8 +18,6 @@ import me.teakivy.teakstweaks.utils.Wiki;
 import me.teakivy.teakstweaks.utils.command.AbstractCommand;
 import me.teakivy.teakstweaks.utils.config.Config;
 import me.teakivy.teakstweaks.utils.customitems.ItemHandler;
-import me.teakivy.teakstweaks.utils.log.PasteManager;
-import me.teakivy.teakstweaks.utils.log.PasteUploader;
 import me.teakivy.teakstweaks.utils.permission.Permission;
 import me.teakivy.teakstweaks.utils.register.TTCommand;
 import net.kyori.adventure.text.Component;
@@ -28,7 +25,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -49,8 +45,6 @@ public class TeaksTweaksCommand extends AbstractCommand {
                         .executes(this::version))
                 .then(Commands.literal("support")
                         .executes(this::support))
-                .then(Commands.literal("update")
-                        .executes(this::update))
                 .then(Commands.literal("wiki")
                         .then(Commands.literal("packs")
                                 .executes(ctx -> wiki(ctx, "Packs")))
@@ -59,11 +53,6 @@ public class TeaksTweaksCommand extends AbstractCommand {
                         .then(Commands.literal("commands")
                                 .executes(ctx -> wiki(ctx, "Commands")))
                 )
-                .then(Commands.literal("paste")
-                        .requires(perm(Permission.COMMAND_TEAKSTWEAKS_PASTE))
-                        .then(Commands.argument("include logs", BoolArgumentType.bool())
-                                .executes(this::paste))
-                        .executes(ctx -> paste(ctx, Config.getBoolean("settings.send-log-in-paste"))))
                 .then(Commands.literal("give")
                         .requires(perm(Permission.COMMAND_TEAKSTWEAKS_GIVE))
                         .then(Commands.argument("targets", ArgumentTypes.players())
@@ -113,43 +102,10 @@ public class TeaksTweaksCommand extends AbstractCommand {
         return Command.SINGLE_SUCCESS;
     }
 
-    private int update(CommandContext<CommandSourceStack> ctx) {
-        CommandSender sender = ctx.getSource().getSender();
-        sender.sendMessage(getText("update", insert("url", URLUtils.clickable(URLUtils.getModrinth()))));
-        return Command.SINGLE_SUCCESS;
-    }
-
     private int wiki(CommandContext<CommandSourceStack> ctx, String page) {
         CommandSender sender = ctx.getSource().getSender();
         sender.sendMessage(getText("wiki", insert("wiki", URLUtils.clickable(Wiki.getWikiPage(page)))));
         return Command.SINGLE_SUCCESS;
-    }
-
-    private int paste(CommandContext<CommandSourceStack> ctx) {
-        return paste(ctx, ctx.getArgument("include logs", boolean.class));
-    }
-
-    private int paste(CommandContext<CommandSourceStack> ctx, boolean logs) {
-        CommandSender sender = ctx.getSource().getSender();
-        sender.sendMessage(getText("paste.uploading", insert("service_name", "Pastebin")));
-
-        String playerName = (sender instanceof Player) ? sender.getName() : "CONSOLE";
-
-        String paste = PasteManager.getPasteContent(playerName, logs);
-        try {
-            String url = PasteUploader.uploadToPastebin(paste, "Support: " + playerName);
-            if (sender instanceof Player) {
-                sender.sendMessage(getText("paste.success", insert("url", URLUtils.clickable(url)), insert("service_name", "Pastebin")));
-                return Command.SINGLE_SUCCESS;
-            }
-            sender.sendMessage(getText("paste.success.console", insert("url", url), insert("service_name", "Pastebin")));
-            return Command.SINGLE_SUCCESS;
-        } catch (IOException e) {
-            sender.sendMessage(getText("paste.error", insert("service_name", "Pastebin")));
-            e.printStackTrace();
-            return 0;
-        }
-
     }
 
     private CompletableFuture<Suggestions> getGiveItemSuggestions(final CommandContext<CommandSourceStack> ctx, final SuggestionsBuilder builder) {
