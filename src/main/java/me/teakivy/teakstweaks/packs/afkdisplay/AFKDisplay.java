@@ -1,25 +1,25 @@
 package me.teakivy.teakstweaks.packs.afkdisplay;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.teakivy.teakstweaks.TeaksTweaks;
 import me.teakivy.teakstweaks.packs.BasePack;
 import me.teakivy.teakstweaks.utils.log.Logger;
 import me.teakivy.teakstweaks.utils.config.Config;
 import me.teakivy.teakstweaks.utils.register.TTPack;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AFKDisplay extends BasePack {
 
@@ -33,8 +33,8 @@ public class AFKDisplay extends BasePack {
         register();
     }
 
-    public static HashMap<UUID, Boolean> afk = new HashMap<>();
-    static HashMap<UUID, Long> lastMove = new HashMap<>();
+    public static ConcurrentHashMap<UUID, Boolean> afk = new ConcurrentHashMap<>();
+    static ConcurrentHashMap<UUID, Long> lastMove = new ConcurrentHashMap<>();
 
     static int afkTimer;
 
@@ -66,7 +66,7 @@ public class AFKDisplay extends BasePack {
 
         afkTimer = Bukkit.getScheduler().runTaskTimer(TeaksTweaks.getInstance(), () -> {
             afk.forEach((uuid, isAFK) -> {
-                Player player = Bukkit.getOfflinePlayer(uuid).getPlayer();
+                Player player = Bukkit.getPlayer(uuid);
                 if (!isAFK) {
                     if (player != null) {
                         long currentTime = System.currentTimeMillis();
@@ -105,29 +105,29 @@ public class AFKDisplay extends BasePack {
                 afkTeam = sb.getTeam("AFK");
                 return;
             }
-            afk.setColor(getColor(color));
+            afk.color(getColor(color));
         }
         afkTeam = sb.getTeam("AFK");
     }
 
-    public static ChatColor getColor(String color) {
+    public static NamedTextColor getColor(String color) {
         return switch (color) {
-            case "black" -> ChatColor.BLACK;
-            case "dark_blue" -> ChatColor.DARK_BLUE;
-            case "dark_green" -> ChatColor.DARK_GREEN;
-            case "dark_aqua" -> ChatColor.DARK_AQUA;
-            case "dark_red" -> ChatColor.DARK_RED;
-            case "dark_purple" -> ChatColor.DARK_PURPLE;
-            case "gold" -> ChatColor.GOLD;
-            case "gray" -> ChatColor.GRAY;
-            case "dark_gray" -> ChatColor.DARK_GRAY;
-            case "blue" -> ChatColor.BLUE;
-            case "green" -> ChatColor.GREEN;
-            case "aqua" -> ChatColor.AQUA;
-            case "red" -> ChatColor.RED;
-            case "light_purple" -> ChatColor.LIGHT_PURPLE;
-            case "yellow" -> ChatColor.YELLOW;
-            default -> ChatColor.WHITE;
+            case "black" -> NamedTextColor.BLACK;
+            case "dark_blue" -> NamedTextColor.DARK_BLUE;
+            case "dark_green" -> NamedTextColor.DARK_GREEN;
+            case "dark_aqua" -> NamedTextColor.DARK_AQUA;
+            case "dark_red" -> NamedTextColor.DARK_RED;
+            case "dark_purple" -> NamedTextColor.DARK_PURPLE;
+            case "gold" -> NamedTextColor.GOLD;
+            case "gray" -> NamedTextColor.GRAY;
+            case "dark_gray" -> NamedTextColor.DARK_GRAY;
+            case "blue" -> NamedTextColor.BLUE;
+            case "green" -> NamedTextColor.GREEN;
+            case "aqua" -> NamedTextColor.AQUA;
+            case "red" -> NamedTextColor.RED;
+            case "light_purple" -> NamedTextColor.LIGHT_PURPLE;
+            case "yellow" -> NamedTextColor.YELLOW;
+            default -> NamedTextColor.WHITE;
         };
     }
 
@@ -159,10 +159,10 @@ public class AFKDisplay extends BasePack {
     }
 
     @EventHandler
-    public void chatEvent(AsyncPlayerChatEvent event) {
+    public void chatEvent(AsyncChatEvent event) {
         Player player = event.getPlayer();
-        if (afk.get(player.getUniqueId())) {
-            unAFK(player);
+        if (Boolean.TRUE.equals(afk.get(player.getUniqueId()))) {
+            Bukkit.getScheduler().runTask(TeaksTweaks.getInstance(), () -> unAFK(player));
         }
     }
 

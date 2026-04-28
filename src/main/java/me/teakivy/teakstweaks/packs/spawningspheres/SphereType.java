@@ -1,9 +1,9 @@
 package me.teakivy.teakstweaks.packs.spawningspheres;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -77,21 +77,21 @@ public enum SphereType {
             case RED -> {
                 if (sb.getTeam("sphere_red") == null) {
                     Team tTeam = sb.registerNewTeam("sphere_red");
-                    tTeam.setColor(ChatColor.RED);
+                    tTeam.color(NamedTextColor.RED);
                 }
                 yield sb.getTeam("sphere_red");
             }
             case BLUE -> {
                 if (sb.getTeam("sphere_blue") == null) {
                     Team tTeam = sb.registerNewTeam("sphere_blue");
-                    tTeam.setColor(ChatColor.BLUE);
+                    tTeam.color(NamedTextColor.BLUE);
                 }
                 yield sb.getTeam("sphere_blue");
             }
             case GREEN -> {
                 if (sb.getTeam("sphere_green") == null) {
                     Team tTeam = sb.registerNewTeam("sphere_green");
-                    tTeam.setColor(ChatColor.GREEN);
+                    tTeam.color(NamedTextColor.GREEN);
                 }
                 yield sb.getTeam("sphere_green");
             }

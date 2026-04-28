@@ -1,40 +1,46 @@
 package me.teakivy.teakstweaks.utils.update;
 
-import org.apache.commons.io.IOUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VersionManager {
     private static final List<Version> versions = new ArrayList<>();
+    private static final HttpClient HTTP = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
 
     public static void init() {
         versions.clear();
-        String url = "https://api.modrinth.com/v2/project/Xdn5t532/version";
         try {
-            String nameJson = IOUtils.toString(new URL(url));
-            JSONArray versions = (JSONArray) JSONValue.parseWithException(nameJson);
-            for (Object version : versions) {
-                JSONObject obj = (JSONObject) version;
-                Version v = parseVersion(obj);
-                VersionManager.versions.add(v);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.modrinth.com/v2/project/Xdn5t532/version"))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = HTTP.send(request, HttpResponse.BodyHandlers.ofString());
+            JsonArray array = JsonParser.parseString(response.body()).getAsJsonArray();
+            for (JsonElement element : array) {
+                versions.add(parseVersion(element.getAsJsonObject()));
             }
-        } catch (IOException | ParseException ignored) {}
+        } catch (Exception ignored) {}
     }
 
-    private static Version parseVersion(JSONObject obj) {
-        String version = (String) obj.get("version_number");
-        String id = (String) obj.get("id");
+    private static Version parseVersion(JsonObject obj) {
+        String version = obj.get("version_number").getAsString();
+        String id = obj.get("id").getAsString();
         List<String> supportedMCVersions = new ArrayList<>();
-        JSONArray supportedVersions = (JSONArray) obj.get("game_versions");
-        for (Object supportedVersion : supportedVersions) {
-            supportedMCVersions.add((String) supportedVersion);
+        JsonArray supportedVersions = obj.getAsJsonArray("game_versions");
+        for (JsonElement supportedVersion : supportedVersions) {
+            supportedMCVersions.add(supportedVersion.getAsString());
         }
         return new Version(version, supportedMCVersions, id);
     }

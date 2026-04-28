@@ -2,6 +2,8 @@ package me.teakivy.teakstweaks.packs.confetticreepers;
 
 import me.teakivy.teakstweaks.packs.BasePack;
 import me.teakivy.teakstweaks.utils.register.TTPack;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
@@ -53,7 +55,7 @@ public class ConfettiCreepers extends BasePack {
 
         Firework fw = (Firework) entity.getWorld().spawnEntity(entity.getLocation(), EntityType.FIREWORK_ROCKET);
         FireworkMeta fwMeta = fw.getFireworkMeta();
-        fwMeta.setDisplayName("Confetti");
+        fwMeta.displayName(Component.text("Confetti").decoration(TextDecoration.ITALIC, false));
         fwMeta.addEffect(fwEffect);
         fw.setFireworkMeta(fwMeta);
         fw.detonate();
