@@ -84,6 +84,7 @@ tasks.processResources {
 tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
     relocate("com.fren_gor.ultimateAdvancementAPI", "me.teakivy.libs.ultimateAdvancementAPI")
     archiveClassifier.set("") // Removes the `-all` suffix
+    archiveFileName.set("TeaksTweaks-v${project.version}.jar")
     mergeServiceFiles()
 
     val customDir = outputDir ?: layout.buildDirectory.dir("libs")
