@@ -1,10 +1,7 @@
 package me.teakivy.teakstweaks.utils.papi;
 
-import com.destroystokyo.paper.ClientOption;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.teakivy.teakstweaks.TeaksTweaks;
-import me.teakivy.teakstweaks.packs.afkdisplay.AFKDisplay;
-import me.teakivy.teakstweaks.utils.lang.TranslationManager;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,16 +37,6 @@ public class PAPIExpansion extends PlaceholderExpansion {
     @Override
     public @NotNull String onPlaceholderRequest(Player player, @NotNull String identifier) {
         if (player == null) return "";
-        if (identifier.equalsIgnoreCase("afk_status")) {
-            return handleAFKStatus(player);
-        }
-
         return "";
-    }
-
-    private String handleAFKStatus(Player player) {
-        return AFKDisplay.isAFK(player) ?
-                TranslationManager.getString(player.getClientOption(ClientOption.LOCALE), "afk_display.placeholder.afk") :
-                TranslationManager.getString(player.getClientOption(ClientOption.LOCALE), "afk_display.placeholder._not_afk");
     }
 }
