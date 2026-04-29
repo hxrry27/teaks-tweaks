@@ -18,9 +18,7 @@ import java.util.*;
 public class TranslationManager {
 
     private final File dataFolder;
-    private final List<String> supportedLanguages = List.of(
-            "en_US", "de_DE", "fi_FI", "fr_FR", "nl_NL", "pl_PL", "ru_RU"
-    );
+    private final List<String> supportedLanguages = List.of("en_US");
 
     public TranslationManager(File dataFolder) {
         this.dataFolder = dataFolder;

@@ -48,7 +48,7 @@ public class WorkstationHighlightCommand extends AbstractCommand {
     @Override
     public LiteralCommandNode<CommandSourceStack> getCommand() {
         return Commands.literal("workstationhighlight")
-                .requires(perm(Permission.COMMAND_SUDOKU))
+                .requires(perm(Permission.COMMAND_WORKSTATIONHIGHLIGHT))
                 .executes(ctx -> {
                     Player player = checkPlayer(ctx);
                     if (player == null) return Command.SINGLE_SUCCESS;
