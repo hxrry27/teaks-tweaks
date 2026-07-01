@@ -27,39 +27,23 @@ settings:
 
 # Packs
 packs:
-  # Enable a pack by changing 'enabled: false' to 'enabled: true'
-  # If a pack is not enabled, none of its effects will happen.
-
-  # Anti Creeper Grief
-  # Prevents creepers from blowing up, blocks and players do not take damage.
   anti-creeper-grief:
     enabled: false
     do-block-damage: false
     do-entity-damage: false
 
-  # Anti Enderman Grief
-  # Prevents endermen from picking up blocks.
   anti-enderman-grief:
     enabled: false
 
-  # Anti Ghast Grief
-  # Prevents ghasts from blowing up blocks.
   anti-ghast-grief:
     enabled: false
 
-  # Armored Elytra
-  # Drop an elytra and a chestplate above an anvil to merge them into one item. Drop the item above a grindstone to separate them again.
-  # Enchantments are kept safely between merging and separating. Burning a netherite armored elytra will separate the items.
-  #
   # Permissions:
   # teakstweaks.armored-elytra.create
   # teakstweaks.armored-elytra.separate
   armored-elytra:
     enabled: false
 
-  # Cauldron Concrete
-  # Right click a water cauldron with concrete powder to harden it.
-  #
   # Permissions:
   # teakstweaks.cauldron-concrete
   cauldron-concrete:
@@ -68,28 +52,17 @@ packs:
     drops-water-level: true
 
 
-  # Cauldron Copper
-  # Adds 2 new types of cauldrons.
   # Slime Cauldron - Filled with Slime Blocks, can be used to age Copper items.
   # Honey Cauldron - Filled with Honey Blocks, can be used to bulk wax Copper items.
   cauldron-copper:
     enabled: false
 
-  # Cauldron Mud
-  # Right click a water cauldron with dirt to turn it into mud.
-  #
   # Permissions:
   # teakstweaks.cauldron-mud
   cauldron-mud:
     enabled: false
-    # Whether or not converting the mud takes a water level from the cauldron
     drops-water-level: true
 
-  # Cauldron Potions
-  # Right click an empty cauldron with a potion to fill it.
-  # Right click the cauldron with a glass bottle to get the potion.
-  # Right click the cauldron with arrows to make tipped arrows.
-  #
   # Permissions:
     # teakstweaks.cauldron-potions
   cauldron-potions:
