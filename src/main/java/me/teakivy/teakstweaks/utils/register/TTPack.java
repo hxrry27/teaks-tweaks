@@ -24,6 +24,7 @@ import me.teakivy.teakstweaks.packs.graves.Graves;
 import me.teakivy.teakstweaks.packs.huskdropssand.HuskDropsSand;
 import me.teakivy.teakstweaks.packs.invisibleitemframes.InvisibleItemFrames;
 import me.teakivy.teakstweaks.packs.killboats.KillBoats;
+import me.teakivy.teakstweaks.packs.lapislock.LapisLock;
 import me.teakivy.teakstweaks.packs.largerphantoms.LargerPhantoms;
 import me.teakivy.teakstweaks.packs.miniblocks.MiniBlocks;
 import me.teakivy.teakstweaks.packs.moremobheads.MoreMobHeads;
@@ -74,6 +75,7 @@ public enum TTPack {
     HUSK_DROPS_SAND("husk-drops-sand", HuskDropsSand.class),
     INVISIBLE_ITEM_FRAMES("invisible-item-frames", InvisibleItemFrames.class),
     KILL_BOATS("kill-boats", KillBoats.class),
+    LAPIS_LOCK("lapis-lock", LapisLock.class),
     LARGER_PHANTOMS("larger-phantoms", LargerPhantoms.class),
     MINI_BLOCKS("mini-blocks", MiniBlocks.class),
     MORE_MOB_HEADS("more-mob-heads", MoreMobHeads.class),

@@ -10,11 +10,13 @@ import java.lang.reflect.Constructor;
 public enum TTCraftingTweak {
     BACK_TO_BLOCKS("back-to-blocks", BackToBlocks.class),
     BLACKSTONE_COBBLESTONE("blackstone-cobblestone", BlackstoneCobblestone.class),
+    CRAFTABLE_CALCITE("craftable-calcite", CraftableCalcite.class),
     CRAFTABLE_COPPER_GOLEM_STATUES("craftable-copper-golem-statues", CraftableCopperGolemStatues.class),
     CRAFTABLE_CORAL_BLOCKS_2X2("craftable-coral-blocks-2x2", CraftableCoralBlocks2x2.class),
     CRAFTABLE_CORAL_BLOCKS_3X3("craftable-coral-blocks-3x3", CraftableCoralBlocks3x3.class),
     CRAFTABLE_SMALL_DRIPLEAF("craftable-small-dripleaf", CraftableSmallDripleaf.class),
     CRAFTABLE_SPORE_BLOSSOMS("craftable-spore-blossoms", CraftableSporeBlossoms.class),
+    CRAFTABLE_TUFF("craftable-tuff", CraftableTuff.class),
     DOUBLE_SLABS("double-slabs", DoubleSlabs.class),
     DROPPER_TO_DISPENSER("dropper-to-dispenser", DropperToDispenser.class),
     MORE_BRICKS("more-bricks", MoreBricks.class),
