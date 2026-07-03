@@ -5,6 +5,7 @@ import me.teakivy.teakstweaks.packs.anticreepergrief.AntiCreeperGrief;
 import me.teakivy.teakstweaks.packs.antiendermangrief.AntiEndermanGrief;
 import me.teakivy.teakstweaks.packs.antighastgrief.AntiGhastGrief;
 import me.teakivy.teakstweaks.packs.armoredelytra.ArmoredElytra;
+import me.teakivy.teakstweaks.packs.bettergoldendandelion.BetterGoldenDandelion;
 import me.teakivy.teakstweaks.packs.cauldronconcrete.CauldronConcrete;
 import me.teakivy.teakstweaks.packs.cauldroncopper.CauldronCopper;
 import me.teakivy.teakstweaks.packs.cauldronmud.CauldronMud;
@@ -56,6 +57,7 @@ public enum TTPack {
     ANTI_ENDERMAN_GRIEF("anti-enderman-grief", AntiEndermanGrief.class),
     ANTI_GHAST_GRIEF("anti-ghast-grief", AntiGhastGrief.class),
     ARMORED_ELYTRA("armored-elytra", ArmoredElytra.class),
+    BETTER_GOLDEN_DANDELION("better-golden-dandelion", BetterGoldenDandelion.class),
     CAULDRON_CONCRETE("cauldron-concrete", CauldronConcrete.class),
     CAULDRON_COPPER("cauldron-copper", CauldronCopper.class),
     CAULDRON_MUD("cauldron-mud", CauldronMud.class),
