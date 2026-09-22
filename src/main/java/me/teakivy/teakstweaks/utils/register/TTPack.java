@@ -21,6 +21,7 @@ import me.teakivy.teakstweaks.packs.easiermending.EasierMending;
 import me.teakivy.teakstweaks.packs.easiernametags.EasierNametags;
 import me.teakivy.teakstweaks.packs.fastleafdecay.FastLeafDecay;
 import me.teakivy.teakstweaks.packs.fixeditemframes.FixedItemFrames;
+import me.teakivy.teakstweaks.packs.foreverinvisible.ForeverInvisible;
 import me.teakivy.teakstweaks.packs.graves.Graves;
 import me.teakivy.teakstweaks.packs.huskdropssand.HuskDropsSand;
 import me.teakivy.teakstweaks.packs.invisibleitemframes.InvisibleItemFrames;
@@ -73,6 +74,7 @@ public enum TTPack {
     EASIER_NAMETAGS("easier-nametags", EasierNametags.class),
     FAST_LEAF_DECAY("fast-leaf-decay", FastLeafDecay.class),
     FIXED_ITEM_FRAMES("fixed-item-frames", FixedItemFrames.class),
+    FOREVER_INVISIBLE("forever-invisible", ForeverInvisible.class),
     GRAVES("graves", Graves.class),
     HUSK_DROPS_SAND("husk-drops-sand", HuskDropsSand.class),
     INVISIBLE_ITEM_FRAMES("invisible-item-frames", InvisibleItemFrames.class),
