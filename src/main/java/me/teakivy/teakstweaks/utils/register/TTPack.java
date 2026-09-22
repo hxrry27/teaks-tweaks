@@ -28,6 +28,7 @@ import me.teakivy.teakstweaks.packs.invisibleitemframes.InvisibleItemFrames;
 import me.teakivy.teakstweaks.packs.killboats.KillBoats;
 import me.teakivy.teakstweaks.packs.lapislock.LapisLock;
 import me.teakivy.teakstweaks.packs.largerphantoms.LargerPhantoms;
+import me.teakivy.teakstweaks.packs.leadanything.LeadAnything;
 import me.teakivy.teakstweaks.packs.miniblocks.MiniBlocks;
 import me.teakivy.teakstweaks.packs.moremobheads.MoreMobHeads;
 import me.teakivy.teakstweaks.packs.musicdiscengraver.MusicDiscEngraver;
@@ -81,6 +82,7 @@ public enum TTPack {
     KILL_BOATS("kill-boats", KillBoats.class),
     LAPIS_LOCK("lapis-lock", LapisLock.class),
     LARGER_PHANTOMS("larger-phantoms", LargerPhantoms.class),
+    LEAD_ANYTHING("lead-anything", LeadAnything.class),
     MINI_BLOCKS("mini-blocks", MiniBlocks.class),
     MORE_MOB_HEADS("more-mob-heads", MoreMobHeads.class),
     MUSIC_DISC_ENGRAVER("music-disc-engraver", MusicDiscEngraver.class),
