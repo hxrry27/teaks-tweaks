@@ -10,6 +10,14 @@ import java.util.List;
 
 public class ItemUtils {
 
+    // _PLANKS is checked first so bamboo resolves to BAMBOO_PLANKS rather than the BAMBOO stalk
+    private static final String[] BASE_SUFFIXES = {
+            "_PLANKS",
+            "",
+            "S",
+            "_BLOCK"
+    };
+
     public static ItemStack handleUse(ItemStack item) {
         return handleUse(item, null);
     }
@@ -76,5 +84,20 @@ public class ItemUtils {
         armor.addAll(Tag.ITEMS_FOOT_ARMOR.getValues());
 
         return armor;
+    }
+
+    public static Material getBaseBlock(Material material, String toStrip) {
+        if (material == Material.PETRIFIED_OAK_SLAB) return Material.OAK_PLANKS;
+        String baseName = material.name().replace(toStrip, "");
+
+        for (String suffix : BASE_SUFFIXES) {
+            Material result = Material.getMaterial(baseName + suffix);
+
+            if (result != null && result.isBlock()) {
+                return result;
+            }
+        }
+
+        return null;
     }
 }
