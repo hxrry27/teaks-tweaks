@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.teakivy"
-version = "2.1.3-hxrry.1"
+version = "2.1.4-hxrry.1"
 description = "150+ Toggleable Tweaks & Features including Vanilla Tweaks as a plugin, and more!"
 java.sourceCompatibility = JavaVersion.VERSION_25
 
@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.+")
     compileOnly("me.clip:placeholderapi:2.11.6")
 }
 
