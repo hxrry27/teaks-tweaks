@@ -365,8 +365,10 @@ packs:
 
   # Peaceful Bees
   # Bees will not attack players, and will not be aggressive when their hive is broken, or when hit.
+  # Permissions:
+  # teakstweaks.peaceful-bees
   peaceful-bees:
-    enabled: true
+    enabled: false
 
   # Player Head Drops
   # A player will drop their head when killed by another player. The item displays who the killer is.
