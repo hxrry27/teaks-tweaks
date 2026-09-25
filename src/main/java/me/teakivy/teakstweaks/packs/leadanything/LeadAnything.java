@@ -1,7 +1,9 @@
 package me.teakivy.teakstweaks.packs.leadanything;
 
 import me.teakivy.teakstweaks.packs.BasePack;
+import me.teakivy.teakstweaks.utils.permission.Permission;
 import me.teakivy.teakstweaks.utils.register.TTPack;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
@@ -9,6 +11,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +22,26 @@ public class LeadAnything extends BasePack {
         super(TTPack.LEAD_ANYTHING, Material.LEAD);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onLead(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
+        if (!Permission.LEAD_ANYTHING.check(player)) return;
         if (player.isSneaking()) return;
-        if (player.getInventory().getItem(event.getHand()).getType() != Material.LEAD) return;
+        ItemStack lead = player.getInventory().getItem(event.getHand());
+        if (lead.getType() != Material.LEAD) return;
 
         if (!(event.getRightClicked() instanceof LivingEntity entity)) return;
         if (entity.isLeashed()) return;
         if (!getLeadableEntities().contains(entity.getType())) return;
 
         event.setCancelled(true);
-        entity.setLeashHolder(player);
+        if (!entity.setLeashHolder(player)) return;
+
+        // Consume the lead like vanilla does, otherwise breaking the leash drops a free one
+        if (player.getGameMode() != GameMode.CREATIVE) {
+            lead.setAmount(lead.getAmount() - 1);
+            player.getInventory().setItem(event.getHand(), lead);
+        }
         entity.getWorld().playSound(entity.getLocation(), Sound.ITEM_LEAD_TIED, 1, 1);
     }
 

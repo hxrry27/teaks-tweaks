@@ -26,6 +26,7 @@ public enum Permission {
     FIXED_ITEM_FRAMES("fixed-item-frames"),
     FOREVER_INVISIBLE("forever-invisible"),
     INVISIBLE_ITEM_FRAMES("invisible-item-frames"),
+    LEAD_ANYTHING("lead-anything"),
     ROTATION_WRENCH_REDSTONE("rotation-wrench.redstone"),
     ROTATION_WRENCH_TERRACOTTA("rotation-wrench.terracotta"),
     SILENCE_MOBS("silence-mobs"),

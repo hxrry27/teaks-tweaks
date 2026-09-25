@@ -309,6 +309,11 @@ packs:
   larger-phantoms:
     enabled: false
 
+  # Lead Anything
+  # Right-click a mob with a lead to leash mobs that normally can't be leashed, such as villagers, hostile mobs and fish.
+  # Each category can be toggled below.
+  # Permissions:
+  # teakstweaks.lead-anything
   lead-anything:
     enabled: false
     # Allow bosses (elder guardians, ender dragons, wardens, withers) to be leashed
