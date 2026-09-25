@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.EnchantingTable;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -31,17 +32,21 @@ public class LapisLock extends BasePack {
         if (enchantingTable == null) return;
 
         ItemStack lapis = inventory.getSecondary();
-        int lapisCount = lapis != null && lapis.getType() == Material.LAPIS_LAZULI ? lapis.getAmount() : 0;
-
-        if (lapisCount > 0) inventory.setSecondary(null);
+        if (lapis == null || lapis.getType() != Material.LAPIS_LAZULI) return;
 
         PersistentDataContainer data = enchantingTable.getPersistentDataContainer();
-        data.set(Key.get("lapis_count"), PersistentDataType.INTEGER, lapisCount);
+        int stored = data.getOrDefault(Key.get("lapis_count"), PersistentDataType.INTEGER, 0);
+        int toStore = Math.min(lapis.getAmount(), Material.LAPIS_LAZULI.getMaxStackSize() - stored);
+        if (toStore <= 0) return;
 
+        lapis.setAmount(lapis.getAmount() - toStore);
+        inventory.setSecondary(lapis.getAmount() > 0 ? lapis : null);
+
+        data.set(Key.get("lapis_count"), PersistentDataType.INTEGER, stored + toStore);
         enchantingTable.update();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onGUIOpen(InventoryOpenEvent event) {
         if (!(event.getInventory() instanceof EnchantingInventory inventory)) return;
         EnchantingTable enchantingTable = getEnchantingTable(inventory);
@@ -49,12 +54,14 @@ public class LapisLock extends BasePack {
 
         PersistentDataContainer data = enchantingTable.getPersistentDataContainer();
         int lapisCount = data.getOrDefault(Key.get("lapis_count"), PersistentDataType.INTEGER, 0);
-        if (lapisCount > 0) {
-            inventory.setSecondary(new ItemStack(Material.LAPIS_LAZULI, lapisCount));
-        }
+        if (lapisCount <= 0) return;
+
+        inventory.setSecondary(new ItemStack(Material.LAPIS_LAZULI, lapisCount));
+        data.remove(Key.get("lapis_count"));
+        enchantingTable.update();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
         if (block.getType() != Material.ENCHANTING_TABLE) return;
