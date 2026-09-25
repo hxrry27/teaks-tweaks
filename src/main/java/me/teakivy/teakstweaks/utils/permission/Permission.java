@@ -24,6 +24,7 @@ public enum Permission {
     CAULDRON_MUD("cauldron-mud"),
     CAULDRON_POTIONS("cauldron-potions"),
     FIXED_ITEM_FRAMES("fixed-item-frames"),
+    FOREVER_INVISIBLE("forever-invisible"),
     INVISIBLE_ITEM_FRAMES("invisible-item-frames"),
     ROTATION_WRENCH_REDSTONE("rotation-wrench.redstone"),
     ROTATION_WRENCH_TERRACOTTA("rotation-wrench.terracotta"),

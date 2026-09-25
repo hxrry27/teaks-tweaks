@@ -222,6 +222,9 @@ packs:
   # Forever Invisible
   # Right-click an entity with a potion of invisibility to make it permanently invisible.
   # Right-click an invisible entity with a milk bucket to make it visible again.
+  # Players cannot be made invisible.
+  # Permissions:
+  # teakstweaks.forever-invisible
   forever-invisible:
     enabled: false
 

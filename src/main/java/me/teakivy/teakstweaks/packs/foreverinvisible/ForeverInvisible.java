@@ -1,9 +1,11 @@
 package me.teakivy.teakstweaks.packs.foreverinvisible;
 
 import me.teakivy.teakstweaks.packs.BasePack;
+import me.teakivy.teakstweaks.utils.permission.Permission;
 import me.teakivy.teakstweaks.utils.register.TTPack;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -19,8 +21,11 @@ public class ForeverInvisible extends BasePack {
         super(TTPack.FOREVER_INVISIBLE, Material.MILK_BUCKET);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onClick(PlayerInteractEntityEvent event) {
+        if (!Permission.FOREVER_INVISIBLE.check(event.getPlayer())) return;
+        if (event.getRightClicked() instanceof Player) return;
+
         ItemStack item = event.getPlayer().getInventory().getItem(event.getHand());
         switch (item.getType()) {
             case POTION:
@@ -45,6 +50,7 @@ public class ForeverInvisible extends BasePack {
         Entity entity = event.getRightClicked();
         if (entity.isInvisible()) return;
         entity.setInvisible(true);
+        event.setCancelled(true);
 
         event.getPlayer().getInventory().setItem(event.getHand(), new ItemStack(Material.GLASS_BOTTLE));
     }
@@ -54,6 +60,7 @@ public class ForeverInvisible extends BasePack {
         Entity entity = event.getRightClicked();
         if (!entity.isInvisible()) return;
         entity.setInvisible(false);
+        event.setCancelled(true);
 
         event.getPlayer().getInventory().setItem(event.getHand(), new ItemStack(Material.BUCKET));
     }
