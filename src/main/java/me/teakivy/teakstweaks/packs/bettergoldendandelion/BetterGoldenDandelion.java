@@ -46,7 +46,7 @@ public class BetterGoldenDandelion extends BasePack {
         super(TTPack.BETTER_GOLDEN_DANDELION, Material.GOLDEN_DANDELION);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onUse(PlayerInteractEntityEvent event) {
         if (!checkGoldenDandelion(event)) return;
 
